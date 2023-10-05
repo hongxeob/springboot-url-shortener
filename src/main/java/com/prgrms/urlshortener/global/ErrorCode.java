@@ -12,5 +12,5 @@ public enum ErrorCode {
 	INVALID_URL_PATTERN("U02", "잘못된 URL 형식입니다.");
 
 	private String code;
-	private String errorMessage;
+	private String message;
 }
