@@ -10,14 +10,12 @@ import com.prgrms.urlshortener.application.dto.UrlResponse;
 import com.prgrms.urlshortener.domain.Url;
 import com.prgrms.urlshortener.domain.UrlRepository;
 import com.prgrms.urlshortener.global.ErrorCode;
-import com.prgrms.urlshortener.global.exception.BusinessException;
+import com.prgrms.urlshortener.global.exception.EntityNotFoundException;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 @Transactional
 public class UrlService {
 
@@ -46,8 +44,7 @@ public class UrlService {
 	public UrlResponse getOriginUrl(String shortUrl) {
 		Url url = urlRepository.findByShortUrl(shortUrl)
 			.orElseThrow(() -> {
-				log.warn("URL을 찾을 수 없습니다.");
-				throw new BusinessException(ErrorCode.NOT_FOUND_URL);
+				throw new EntityNotFoundException(ErrorCode.NOT_FOUND_URL);
 			});
 
 		return UrlResponse.from(url);
